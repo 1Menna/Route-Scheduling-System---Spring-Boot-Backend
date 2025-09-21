@@ -15,7 +15,7 @@
 
 1. **Clone the repository:**
    ```powershell
-   git clone <your-repo-url>
+   git clone https://github.com/1Menna/Route-Scheduling-System---Spring-Boot-Backend.git
    ```
 
 2. **Navigate to the project directory:**
@@ -73,9 +73,6 @@ The application will start on `http://localhost:8080`
    spring.datasource.url=jdbc:mysql://localhost:3306/DRBdb
    spring.datasource.username=root
    spring.datasource.password=YourPassword
-   spring.jpa.hibernate.ddl-auto=update
-   spring.jpa.show-sql=true
-   spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
    ```
 
 ## API Endpoints
