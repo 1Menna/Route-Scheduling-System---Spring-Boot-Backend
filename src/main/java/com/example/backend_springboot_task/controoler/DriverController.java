@@ -32,7 +32,7 @@ public class DriverController {
         return drive_repo.findAll();
     }
 
-    @GetMapping("/drivers/{id}")
+    @GetMapping("/drivers/{id}/history")
     public List<Integer> getDriver_assignedRoutes_Ids(@PathVariable("id") int id){
         return drive_repo.findById(id).get().getAssignedRoutes();
     }
