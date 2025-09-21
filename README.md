@@ -48,7 +48,7 @@ The application will start on `http://localhost:8080`
        name VARCHAR(20),
        license_type VARCHAR(20),
        availability BOOL,
-       assigned_routes JSON  
+       assigned_routes JSON
    );
    
    CREATE TABLE route (
@@ -56,8 +56,8 @@ The application will start on `http://localhost:8080`
        start_location VARCHAR(255),
        end_location VARCHAR(255),
        distance DECIMAL(8,3),
-       estimated_time DECIMAL(8,3) 
-   );
+       estimated_time DECIMAL(8,3)
+    );
    
    CREATE TABLE schedule (
        id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,23 +77,31 @@ The application will start on `http://localhost:8080`
 
 ## API Endpoints
 
-| Method | Endpoint | Description | Example Input |
-|--------|---------|-------------|---------------|
-| POST   | /drivers | Add a new driver | { "id": 122, "name": "John Doe", "licenseType": "B", "availability": true }  |
-| GET    | /drivers | Get all drivers | - |
-| GET    | /drivers/{id} | Get all assigned route IDs for a specific driver | - |
-| POST   | /routes | Add a new route | { "startLocation": "Cairo", "endLocation": "Alexandria", "distance": 220.5, "estimatedTime": 3.5 }  |
-| GET    | /routes | Get all routes | - |
-| GET    | /schedule | Recalculate and return driver-route assignments | - |
+| Method | Endpoint | Description | Example Input | Query Parameters |
+|--------|---------|-------------|---------------|------------------|
+| POST   | /drivers | Add a new driver | { "id": 122, "name": "John Doe", "licenseType": "B", "availability": true } | - |
+| GET    | /drivers | Get all drivers | - | - |
+| GET    | /drivers/{id} | Get all assigned route IDs for a specific driver | - | - |
+| POST   | /routes | Add a new route | { "startLocation": "Cairo", "endLocation": "Alexandria", "distance": 220.5, "estimatedTime": 3.5 } | - |
+| GET    | /routes | Get all routes with pagination | - | `page=0` (default), `size=5` (default) |
+| GET    | /schedule | Recalculate and return driver-route assignments | - | - |
+
 
 ## Features Implemented
 
 - ✅ Add and manage drivers with availability status
 - ✅ Create and retrieve routes with distance/time details
+- ✅👌**BONUS** Paginated route retrieval with configurable page size
 - ✅ Automatic driver-route assignment scheduling
-- 👌**BONUS** JSON array support for tracking assigned routes for each driver
+- ✅👌**BONUS** JSON array support for tracking assigned routes for each driver
 - ✅ Database persistence with MySQL
 - ✅ Schedule recalculation that resets driver availability
+
+### Pagination Examples for /routes endpoint:
+- Get first page (default): `GET /routes`
+- Get first page with 10 items: `GET /routes?size=10`
+- Get second page with 5 items: `GET /routes?page=1&size=5`
+- Get third page with custom size: `GET /routes?page=2&size=3`
 
 ## Assumptions Made
 
@@ -103,5 +111,5 @@ The application will start on `http://localhost:8080`
 4. *Availability Reset*: /schedule endpoint resets all drivers to available before reassigning
 5. *Assignment Strategy*: First-come, first-served basis for available drivers
 6. *Database*: MySQL chosen for JSON column support and reliability
-7. *Route Assignment*: Unassigned routes remain unscheduled if no drivers available
-
+7. *Route Assignment*: Unassigned routes remain unscheduled if no drivers available
+8. *Pagination*: Routes endpoint returns paginated results with default page size of 5
